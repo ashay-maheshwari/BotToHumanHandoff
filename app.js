@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const express = require("express");
 const builder = require("botbuilder");
+var botbuilder_azure = require("botbuilder-azure");
 const handoff_1 = require("./handoff");
 const commands_1 = require("./commands");
 //=========================================================

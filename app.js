@@ -14,14 +14,23 @@ app.listen(process.env.port || process.env.PORT || 3978, '::', () => {
 });
 // Create chat bot
 const connector = new builder.ChatConnector({
-    appId: "4aef09d5-d026-48ee-8343-1c8b71fb0cf8",
-    appPassword: "|yz5|vJ6N$A12rRc1:Sd0Pm:+3>Di"
+    appId: "baa39aa4-4c6a-46e6-9520-a9176726b1fb",
+    appPassword: "-kwmxspV_wzJe7EjWOZA./yK"
 });
+
+var tableName = 'botdata';
+var azureTableClient = new botbuilder_azure.AzureTableClient(tableName, process.env['AzureWebJobsStorage']);
+var tableStorage = new botbuilder_azure.AzureBotStorage({ gzipData: false }, azureTableClient);
+
+
 const bot = new builder.UniversalBot(connector, [
     function (session, args, next) {
         session.send('Echo ' + session.message.text);
     }
 ]);
+bot.set('storage', tableStorage);
+
+
 app.post('/api/messages', connector.listen());
 // Create endpoint for agent / call center
 app.use('/webchat', express.static('public'));
